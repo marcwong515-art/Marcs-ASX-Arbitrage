@@ -224,7 +224,7 @@ class TestComputeSignals:
         sigs = compute_signals(y, x, half_life_days=10.0)
         early_positions = sigs.position.iloc[:HEDGE_WINDOW]
         assert (early_positions == 0).all(), (
-            "Positions opened before rolling window is warm — lookahead!"
+            "Positions opened before rolling window is warm  -  lookahead!"
         )
 
     def test_some_trades_generated(self):

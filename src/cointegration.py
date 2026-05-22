@@ -34,8 +34,8 @@ from statsmodels.tools import add_constant
 # Constants
 # ---------------------------------------------------------------------------
 ADF_SIGNIFICANCE = 0.05          # p-value threshold for stationarity tests
-HALF_LIFE_MIN = 1                 # days — reject pairs that revert too fast
-HALF_LIFE_MAX = 30                # days — reject pairs that revert too slowly
+HALF_LIFE_MIN = 1                 # days  -  reject pairs that revert too fast
+HALF_LIFE_MAX = 30                # days  -  reject pairs that revert too slowly
 
 
 # ---------------------------------------------------------------------------
@@ -109,8 +109,8 @@ def adf_unit_root(series: pd.Series, ticker: str = "") -> AdfResult:
 
     Null hypothesis of ADF: series has a unit root (non-stationary).
     We require:
-      - Fail to reject H0 on levels (p > 0.05) — non-stationary
-      - Reject H0 on first differences (p <= 0.05) — difference-stationary
+      - Fail to reject H0 on levels (p > 0.05)  -  non-stationary
+      - Reject H0 on first differences (p <= 0.05)  -  difference-stationary
 
     'autolag="AIC"' selects lag length by minimising AIC, standard practice.
     """
@@ -150,7 +150,7 @@ def engle_granger(
       If residuals are I(0) (reject unit root), the pair is cointegrated.
 
     We also use statsmodels coint() which applies the EG test with
-    finite-sample critical-value corrections — we report its p-value for
+    finite-sample critical-value corrections  -  we report its p-value for
     transparency but use our own OLS hedge ratio for signal generation.
 
     No lookahead: all data passed here must be from the in-sample period only.
@@ -284,7 +284,7 @@ def estimate_half_life(
     sigma = model.resid.std()
 
     if kappa <= 0:
-        # Spread is non-stationary under OU assumption — reject
+        # Spread is non-stationary under OU assumption  -  reject
         return HalfLifeResult(
             ticker_y=ticker_y, ticker_x=ticker_x,
             half_life_days=np.inf, ou_kappa=kappa, ou_mu=mu, ou_sigma=sigma,
@@ -319,7 +319,7 @@ def analyse_pair(
       3. Johansen confirms cointegration (robustness check).
       4. Half-life is in [HALF_LIFE_MIN, HALF_LIFE_MAX] days.
 
-    All data must be from the in-sample period — no out-of-sample data
+    All data must be from the in-sample period  -  no out-of-sample data
     is ever passed here during pair selection.
     """
     result = PairAnalysis(ticker_y=ticker_y, ticker_x=ticker_x)

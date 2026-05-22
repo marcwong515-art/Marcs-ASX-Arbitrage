@@ -5,7 +5,7 @@ Performance and risk metrics for the pairs trading strategy.
 
 All metrics are computed from a daily PnL series. The caller is responsible
 for passing the correct slice (in-sample or out-of-sample). Metrics are never
-computed on a mix of in-sample and out-of-sample data — doing so would obscure
+computed on a mix of in-sample and out-of-sample data  -  doing so would obscure
 the true out-of-sample performance.
 """
 

@@ -19,7 +19,7 @@ import yfinance as yf
 # Hardcoded ASX 50 universe with GICS sector labels.
 # Source: ASX website (accessed 2024-Q4). Survivorship bias note: this is a
 # snapshot of *current* constituents, so stocks that were delisted or
-# removed before 2024 are not represented. This is a known limitation —
+# removed before 2024 are not represented. This is a known limitation  - 
 # see README Limitations section.
 # ---------------------------------------------------------------------------
 ASX50_UNIVERSE: dict[str, list[str]] = {

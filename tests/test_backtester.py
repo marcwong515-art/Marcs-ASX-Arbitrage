@@ -182,7 +182,7 @@ class TestBacktestPair:
         assert isinstance(result.daily_pnl, pd.Series)
 
     def test_equity_curve_equals_cumsum_of_daily_pnl(self):
-        """Equity curve must be exactly cumsum of daily PnL — no other transformation."""
+        """Equity curve must be exactly cumsum of daily PnL  -  no other transformation."""
         prices = make_cointegrated_prices()
         pair = make_dummy_selected_pair()
         result = backtest_pair(pair, prices, half_life_days=10.0, capital=10_000)
@@ -206,7 +206,7 @@ class TestBacktestPair:
         result = backtest_pair(pair, prices, half_life_days=10.0, capital=10_000)
         warm_up_positions = result.positions.iloc[:HEDGE_WINDOW]
         assert (warm_up_positions == 0).all(), (
-            "Positions opened during warm-up — potential lookahead bias"
+            "Positions opened during warm-up  -  potential lookahead bias"
         )
 
     def test_missing_ticker_raises_value_error(self):
@@ -223,7 +223,7 @@ class TestBacktestPair:
         if result.n_trades > 0:
             gross_total = sum(t.gross_pnl for t in result.trades)
             assert result.total_net_pnl <= gross_total + 1e-8, (
-                "Net PnL exceeds gross PnL — costs have wrong sign"
+                "Net PnL exceeds gross PnL  -  costs have wrong sign"
             )
             assert result.total_cost >= 0, "Total cost must be non-negative"
 

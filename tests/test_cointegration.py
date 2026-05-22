@@ -5,7 +5,7 @@ Unit tests for cointegration.py using synthetic data with known properties.
 
 Design principle: we generate data where the answer is known analytically, then
 verify that our statistical procedures recover the right answer. This tests both
-the math and the implementation — a test that always passes regardless of
+the math and the implementation  -  a test that always passes regardless of
 implementation would be worthless.
 """
 
@@ -61,7 +61,7 @@ def make_cointegrated_pair(
 
 
 def make_stationary_series(n: int) -> pd.Series:
-    """AR(1) stationary process — not I(1)."""
+    """AR(1) stationary process  -  not I(1)."""
     s = np.zeros(n)
     for t in range(1, n):
         s[t] = 0.8 * s[t - 1] + RNG.normal(0, 1)

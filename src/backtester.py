@@ -2,7 +2,7 @@
 backtester.py
 -------------
 Walk-forward pairs trading backtester. Deliberately written without any
-external backtesting library — every PnL calculation is explicit and auditable.
+external backtesting library  -  every PnL calculation is explicit and auditable.
 
 Key design decisions:
   1. Rolling hedge ratio: refit every REFIT_DAYS using only the preceding
@@ -41,7 +41,7 @@ from src.pair_selection import SelectedPair
 from src.signals import HEDGE_WINDOW, SignalSeries, compute_signals
 
 # ---------------------------------------------------------------------------
-# Cost parameters — explicitly declared, never hidden
+# Cost parameters  -  explicitly declared, never hidden
 # ---------------------------------------------------------------------------
 ROUND_TRIP_BPS = 10       # 10 bps round-trip per leg (entry + exit combined)
 BORROW_BPS_ANNUAL = 50    # 50 bps per annum borrow cost on the short leg
@@ -165,7 +165,7 @@ def _compute_daily_pnl(
     Parameters
     ----------
     y, x      : Aligned price series (same index as signals).
-    signals   : Output of compute_signals() — contains z_score, position, etc.
+    signals   : Output of compute_signals()  -  contains z_score, position, etc.
     capital   : Dollar capital allocated to this pair.
     target_vol: Annualised volatility target for sizing.
 
@@ -318,7 +318,7 @@ def backtest_pair(
     Backtest a single pair over the provided price history.
 
     The caller controls which price slice is passed (in-sample or OOS).
-    This function applies no IS/OOS logic — it processes whatever it receives,
+    This function applies no IS/OOS logic  -  it processes whatever it receives,
     which prevents any accidental data snooping.
 
     No lookahead: signals.compute_signals() uses rolling windows ending at t-1

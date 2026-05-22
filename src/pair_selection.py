@@ -5,12 +5,12 @@ Screens the ASX 50 universe to find cointegrated pairs suitable for
 statistical arbitrage.
 
 Pipeline (each step narrows the candidate set):
-  Stage 0 — Sector filter:   only test pairs within the same GICS sector.
-  Stage 1 — ADF filter:      both tickers must be I(1).
-  Stage 2 — Engle-Granger:   residuals must be stationary (p <= 0.05).
-  Stage 3 — Johansen:        trace statistic must exceed 95% critical value.
-  Stage 4 — Half-life:       OU half-life must be in [1, 30] trading days.
-  Stage 5 — Ranking:         surviving pairs ranked by EG p-value, then half-life.
+  Stage 0  -  Sector filter:   only test pairs within the same GICS sector.
+  Stage 1  -  ADF filter:      both tickers must be I(1).
+  Stage 2  -  Engle-Granger:   residuals must be stationary (p <= 0.05).
+  Stage 3  -  Johansen:        trace statistic must exceed 95% critical value.
+  Stage 4  -  Half-life:       OU half-life must be in [1, 30] trading days.
+  Stage 5  -  Ranking:         surviving pairs ranked by EG p-value, then half-life.
                              Top 5 selected for backtesting.
 
 CRITICAL: This module receives only in-sample price data. Out-of-sample data
@@ -74,7 +74,7 @@ def _same_sector_pairs(
 ) -> list[tuple[str, str]]:
     """
     Return all (y, x) ordered pairs where both tickers share a GICS sector.
-    We test both orderings (y,x) and (x,y) because EG is not symmetric —
+    We test both orderings (y,x) and (x,y) because EG is not symmetric  - 
     the hedge ratio changes with direction. We deduplicate after selection.
     """
     pairs = []

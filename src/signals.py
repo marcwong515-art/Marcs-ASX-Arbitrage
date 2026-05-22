@@ -8,7 +8,7 @@ Key design decisions (each chosen to avoid lookahead bias):
 1. Hedge ratio is estimated by rolling 60-day OLS, not a static in-sample fit.
    At each date t, the hedge ratio uses only prices from [t-60, t-1].
    A static hedge ratio fitted on in-sample data, then applied to all of
-   out-of-sample, would be a mild form of lookahead — the ratio would "know"
+   out-of-sample, would be a mild form of lookahead  -  the ratio would "know"
    the full distributional properties of the in-sample period.
 
 2. The z-score normalisation (mean, std) uses the same rolling 60-day window.
@@ -40,7 +40,7 @@ from statsmodels.tools import add_constant
 
 
 # ---------------------------------------------------------------------------
-# Signal thresholds — fixed, not calibrated on data
+# Signal thresholds  -  fixed, not calibrated on data
 # ---------------------------------------------------------------------------
 ENTRY_Z = 2.0
 EXIT_Z = 0.5
@@ -79,7 +79,7 @@ def rolling_ols_beta(
     x_arr = x.values
 
     for t in range(window, len(y)):
-        # [t-window, t) — excludes index t itself
+        # [t-window, t)  -  excludes index t itself
         y_w = y_arr[t - window: t]
         x_w = x_arr[t - window: t]
 

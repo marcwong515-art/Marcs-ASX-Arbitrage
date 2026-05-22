@@ -1,4 +1,4 @@
-# Marc's ASX Arbitrage — Statistical Pairs Trading
+# Marc's ASX Arbitrage  -  Statistical Pairs Trading
 
 A rigorous implementation of statistical arbitrage pairs trading on ASX 50 equities,
 built for a quantitative trading club application. The focus is methodological
@@ -14,7 +14,7 @@ directional views on any single asset. Pairs trading is the simplest instance:
 if two stocks share a common fundamental driver (e.g., two banks competing in
 the same retail lending market), their prices should move together over time.
 When they temporarily diverge beyond what fundamentals explain, a mean-reverting
-trade — long the cheaper leg, short the expensive leg — can profit from the
+trade  -  long the cheaper leg, short the expensive leg  -  can profit from the
 convergence.
 
 The strategy is market-neutral by construction: the dollar exposure to the
@@ -33,7 +33,7 @@ is stationary. That stationary linear combination is the spread we trade.
 ### 1. Universe
 
 ASX 50 constituents (hardcoded snapshot as of 2024-Q4), grouped by GICS sector.
-Only same-sector pairs are tested — enforcing sector homogeneity reduces the
+Only same-sector pairs are tested  -  enforcing sector homogeneity reduces the
 probability of spurious cointegration from unrelated macro exposures.
 
 ### 2. In-sample / out-of-sample split
@@ -45,7 +45,7 @@ probability of spurious cointegration from unrelated macro exposures.
 
 **The out-of-sample period is never touched during pair selection.**
 Any pair selected using knowledge of the 2021–present period would constitute
-*data snooping* — the researcher would be selecting pairs that happened to work
+*data snooping*  -  the researcher would be selecting pairs that happened to work
 well in the evaluation period, producing artificially high out-of-sample metrics.
 This is one of the most common errors in quantitative research.
 
@@ -53,11 +53,11 @@ This is one of the most common errors in quantitative research.
 
 For each same-sector pair $(Y, X)$ on in-sample data:
 
-**Gate 1 — ADF unit root.** Both series must be I(1): non-stationary in levels,
+**Gate 1  -  ADF unit root.** Both series must be I(1): non-stationary in levels,
 stationary in first differences. Tested with `statsmodels.adfuller`, lag length
 selected by AIC.
 
-**Gate 2 — Engle-Granger (1987) two-step.**
+**Gate 2  -  Engle-Granger (1987) two-step.**
 
 Step 1 (OLS regression):
 $$Y_t = \alpha + \beta X_t + e_t$$
@@ -69,12 +69,12 @@ If the residuals $e_t$ are I(0) (ADF p-value $\leq 0.05$), the pair is
 cointegrated. We use `statsmodels.coint()` which applies MacKinnon (1994)
 finite-sample critical values.
 
-**Gate 3 — Johansen (1988) trace test.** The Johansen maximum-likelihood
+**Gate 3  -  Johansen (1988) trace test.** The Johansen maximum-likelihood
 test provides a robustness check on the EG result. We use `det_order=0`
 (constant in the cointegrating relation) and `k_ar_diff=1`. Pairs pass if
 the trace statistic exceeds the 95% critical value.
 
-**Gate 4 — OU half-life.** The spread $S_t = Y_t - \hat{\beta} X_t$ is fit
+**Gate 4  -  OU half-life.** The spread $S_t = Y_t - \hat{\beta} X_t$ is fit
 to a discrete-time Ornstein-Uhlenbeck process:
 
 $$\Delta S_t = a + b \cdot S_{t-1} + \varepsilon_t$$
@@ -144,7 +144,7 @@ Screening funnel: 121 → 108 (both I(1)) → 7 (EG p<0.05) → 3 (Johansen) →
 
 *All figures on $1,000,000 notional, 10 bps round-trip costs, 50 bps borrow.*
 
-**Honest assessment**: the in-sample performance is negative — the CSL/RMD spread
+**Honest assessment**: the in-sample performance is negative  -  the CSL/RMD spread
 did not behave consistently over 2015–2020. The out-of-sample is marginally positive
 (Sharpe +0.04, profit factor 1.05), which is not investable on its own. The value of
 this study lies in the methodology, not the strategy P&L: the rigorous cointegration
@@ -181,7 +181,7 @@ factors; this is a deliberate simplification.
 **Structural breaks.** COVID-19 (2020) and the subsequent rate tightening cycle
 altered credit spreads, commodity prices, and equity correlations. Pairs that
 cointegrated strongly in 2015–2020 may have experienced permanent structural
-breaks — which is precisely why the out-of-sample evaluation matters.
+breaks  -  which is precisely why the out-of-sample evaluation matters.
 
 **No ML or data mining.** This project is explicitly classical econometrics.
 There is no hyperparameter search across signal thresholds, no feature
@@ -225,9 +225,9 @@ jupyter notebook
 ```
 
 Run in order:
-1. `01_universe_and_pairs.ipynb` — pair selection funnel
-2. `02_cointegration_analysis.ipynb` — deep-dive on top pair
-3. `03_backtest_results.ipynb` — equity curves, metrics, honest discussion
+1. `01_universe_and_pairs.ipynb`  -  pair selection funnel
+2. `02_cointegration_analysis.ipynb`  -  deep-dive on top pair
+3. `03_backtest_results.ipynb`  -  equity curves, metrics, honest discussion
 
 Notebook 1 saves the selected pairs to `data/selected_pairs.pkl`; Notebooks 2
 and 3 load from that file.
@@ -253,7 +253,7 @@ asx-pairs-trading/
 │   ├── test_cointegration.py # 20 tests on synthetic cointegrated series
 │   ├── test_signals.py       # 18 tests including state machine edge cases
 │   └── test_backtester.py    # 19 tests with hand-calculated cost verification
-├── data/                     # gitignored — parquet cache lives here
+├── data/                     # gitignored  -  parquet cache lives here
 ├── requirements.txt
 ├── .gitignore
 └── LICENSE
